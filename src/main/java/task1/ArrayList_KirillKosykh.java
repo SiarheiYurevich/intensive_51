@@ -36,15 +36,15 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      * усли меньше 25% занято, то уменьшаем
      */
     private void resizeArray() {
-        if ((double) this.shift / (double) this.array.length >= 0.75) {
+        if ((double) shift / (double) array.length >= 0.75) {
             int[] biggerArray = new int[shift * 2];
-            if (shift >= 0) System.arraycopy(this.array, 0, biggerArray, 0, shift);
-            this.array = biggerArray;
+            if (shift >= 0) System.arraycopy(array, 0, biggerArray, 0, shift);
+            array = biggerArray;
         }
-        if (this.array.length / this.shift >= 4) {
+        if (array.length / shift >= 4) {
             int[] smallerArray = new int[shift * 2];
-            if (shift >= 0) System.arraycopy(this.array, 0, smallerArray, 0, shift);
-            this.array = smallerArray;
+            if (shift >= 0) System.arraycopy(array, 0, smallerArray, 0, shift);
+            array = smallerArray;
         }
     }
 
@@ -53,7 +53,7 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      */
     @Override
     public int size() {
-        return this.shift;
+        return shift;
     }
 
     /**
@@ -75,14 +75,14 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      */
     @Override
     public void add(int index, Integer element) {
-        int count = this.shift;
+        int count = shift;
 
         while (count > index) {
-            this.array[count] = this.array[--count];
+            array[count] = array[--count];
         }
-        this.array[index] = element;
+        array[index] = element;
 
-        this.shift++;
+        shift++;
 
         resizeArray();
     }
@@ -94,8 +94,8 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      */
     @Override
     public Integer get(int index) {
-        if (index >= this.shift) throw new IllegalArgumentException();
-        return this.array[index];
+        if (index >= shift) throw new IllegalArgumentException();
+        return array[index];
     }
 
     /**
@@ -106,8 +106,8 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      */
     @Override
     public Integer set(int index, Integer element) {
-        if (index >= this.shift) throw new IllegalArgumentException();
-        return this.array[index];
+        if (index >= shift || index < 0) throw new IllegalArgumentException();
+        return array[index];
     }
 
     /**
@@ -117,13 +117,13 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      */
     @Override
     public Integer remove(int index) {
-        if (index >= this.shift || index < 0) throw new IllegalArgumentException();
-        int answer = this.array[index];
+        if (index >= shift || index < 0) throw new IllegalArgumentException();
+        int answer = array[index];
 
         for (int i = shift; i > index; i--) {
-            this.array[i - 1] = this.array[i];
+            array[i - 1] = array[i];
         }
-        this.shift--;
+        shift--;
 
         resizeArray();
 
@@ -135,8 +135,8 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      */
     @Override
     public void clear() {
-        this.shift = 0;
-        this.array = new int[10];
+        shift = 0;
+        array = new int[10];
     }
 
     /**
@@ -147,17 +147,50 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      */
     @Override
     public void quickSort(Comparator<Integer> comparator) {
-        Arrays.sort(this.array);
+        selfWrittenQuickSort(array, 0, shift);
         if (comparator != Comparator.naturalOrder()) {
             int start = 0, end = shift - 1;
             while (start < end) {
-                int temp = this.array[start];
-                this.array[start] = this.array[end];
-                this.array[end] = temp;
+                int temp = array[start];
+                array[start] = array[end];
+                array[end] = temp;
                 start++;
                 end--;
             }
         }
+    }
+
+    /**
+     * Выполнение быстрой сортировки с помощью рекурсии
+     *
+     * @param array массив, который сортируем
+     * @param left левая граница массива(подмассива)
+     * @param right правая граница массива(подмассива)
+     */
+    private void selfWrittenQuickSort(int[] array, int left, int right) {
+        if (array.length == 0 || left >= right) return;
+
+        int mid = left + (right - left) / 2;
+        int target = array[mid];
+
+        int i = left, j = right;
+
+        while (i <= j) {
+
+            while (array[i] < target) i++;
+            while (array[j] > target) j--;
+
+            if (i <= j) {
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                i++;
+                j--;
+            }
+        }
+
+        if (left < j) selfWrittenQuickSort(array, left, j);
+        if (right > i) selfWrittenQuickSort(array, i, right);
     }
 
     /**
@@ -166,8 +199,8 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      */
     @Override
     public boolean isSorted() {
-        for (int i = 1; i < this.shift; i++) {
-            if (this.array[i] < this.array[i - 1]) return false;
+        for (int i = 1; i < shift; i++) {
+            if (array[i] < array[i - 1]) return false;
         }
         return true;
     }
@@ -179,9 +212,9 @@ public class ArrayList_KirillKosykh implements IntensiveList<Integer> {
      */
     @Override
     public void split(int size) {
-        if (size > this.shift) throw new IllegalArgumentException();
+        if (size > shift) throw new IllegalArgumentException();
         int[] splitArray = new int[size * 2];
-        if (size >= 0) System.arraycopy(this.array, 0, splitArray, 0, size);
-        this.array = splitArray;
+        if (size >= 0) System.arraycopy(array, 0, splitArray, 0, size);
+        array = splitArray;
     }
 }
