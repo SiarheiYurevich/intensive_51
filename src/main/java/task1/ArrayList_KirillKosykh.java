@@ -21,16 +21,6 @@ public class ArrayList_KirillKosykh<E> implements IntensiveList<E> {
     }
 
     /**
-     * Конструктор, инициализирующий массив для заданного количества элементов.
-     *
-     * @param shift количество элементов
-     */
-    public ArrayList_KirillKosykh(int shift) {
-        this.shift = shift;
-        this.list = new Object[shift * 2];
-    }
-
-    /**
      * Контроль за размером массива
      * если более 75% занято, то расширяем
      * усли меньше 25% занято, то уменьшаем
