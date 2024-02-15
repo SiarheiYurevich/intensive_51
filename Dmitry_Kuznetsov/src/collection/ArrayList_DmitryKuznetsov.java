@@ -44,18 +44,6 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
         }
     }
 
-    private void capacitySetExtension(E element, Object[] myListExtension, int index) {
-        try {
-            myList = new Object[index];
-            for (int i = 0; i < myListExtension.length; i++) {
-                myList[i] = myListExtension[i];
-            }
-            myList[index] = element;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private E removeFromMyList(int index, Object[] myListRemove) {
         try {
             E element = (E) myList[index];
@@ -97,11 +85,10 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
     @Override
     public void add(int index, E element) {
         try {
-            if (capacity < index) {
-                capacitySetExtension(element, myList, index);
-            } else {
-                capacityAddExtension(element, myList, index);
+            if (index < 0 || index >= capacity) {
+                throw new IndexOutOfBoundsException("Invalid index: " + index);
             }
+            capacityAddExtension(element, myList, index);
             size++;
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,12 +108,11 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
     @Override
     public E set(int index, E element) {
         try {
-            if (capacity >= index) {
-                myList[index] = element;
-            } else {
-                capacitySetExtension(element, myList, index);
+            if (index < 0 || index >= capacity) {
+                throw new IndexOutOfBoundsException("Invalid index: " + index);
             }
-            return element;
+            myList[index] = element;
+            return (E) myList[index];
         } catch (ClassCastException classCastException) {
             classCastException.printStackTrace();
             return null;
