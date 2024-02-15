@@ -104,7 +104,6 @@ public class ArrayList_IgorPopovich<E> implements IntensiveList<E>{
      */
     @Override
     public void clear() {
-        Arrays.fill(elements, null);
         size = 0;
         elements = new Object[DEFAULT_CAPACITY];
     }
@@ -150,7 +149,11 @@ public class ArrayList_IgorPopovich<E> implements IntensiveList<E>{
     private void ensureCapacity(int minCapacity) {
         if (minCapacity > elements.length) {
             int newCapacity = Math.max(elements.length * GROWTH_FACTOR, minCapacity);
-            elements = Arrays.copyOf(elements, newCapacity);
+            Object[] newElements = new Object[newCapacity];
+            for (int i = 0; i < size; i++) {
+                newElements[i] = elements[i];
+            }
+            elements = newElements;
         }
     }
 
