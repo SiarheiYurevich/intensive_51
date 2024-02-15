@@ -6,3 +6,22 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# Ignore temporary files
+*.tmp
+*~
+
+# Ignore build directories
+/build/
+/target/
+
+# Ignore IDE configuration files
+.idea/
+
+# Ignore local history files
+*.log
+
+# Ignore Maven build files
+*.jar
+*.war
+*.ear
