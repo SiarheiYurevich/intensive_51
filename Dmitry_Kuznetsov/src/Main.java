@@ -1,6 +1,8 @@
 import collection.ArrayList_DmitryKuznetsov;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -38,6 +40,8 @@ public class Main {
         System.out.println("Должно быть: 100 300 400.!   " + arrayList.get(0));
         System.out.println("Проверка метода Size: " + arrayList.size());
         arrayList.clear();
+
+
 
     }
 }

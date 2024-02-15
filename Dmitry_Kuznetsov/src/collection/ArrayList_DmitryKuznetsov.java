@@ -26,7 +26,7 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
         }
     }
 
-    private void capacityAddExtension(E element, Object[] myListExtension, int index) {////////////////////////////////////////
+    private void capacityAddExtension(E element, Object[] myListExtension, int index) {
         try {
             capacity++;
             myList = new Object[capacity];
@@ -78,7 +78,7 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
     @Override
     public int size() {
         return size;
-    } //работает
+    }
 
     @Override
     public void add(E element) {
@@ -92,7 +92,7 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    } //работает
+    }
 
     @Override
     public void add(int index, E element) {
@@ -106,7 +106,7 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    } //работает, но работает даже есть список меньше чем задаваемый индекс
+    }
 
     @Override
     public E get(int index) {
@@ -116,7 +116,7 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
             classCastException.printStackTrace();
             return null;
         }
-    } //работает
+    }
 
     @Override
     public E set(int index, E element) {
@@ -131,7 +131,7 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
             classCastException.printStackTrace();
             return null;
         }
-    }  //работает но создает null элемент
+    }
 
     @Override
     public E remove(int index) {
@@ -152,7 +152,7 @@ public class ArrayList_DmitryKuznetsov<E> implements IntensiveList<E> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    } //удаляет но оставляет null null null
+    }
 
     @Override
     public void quickSort(Comparator<E> comparator) {
