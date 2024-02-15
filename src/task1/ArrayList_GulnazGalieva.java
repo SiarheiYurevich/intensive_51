@@ -233,7 +233,26 @@ public class ArrayList_GulnazGalieva<E> implements IntensiveList<E> {
      */
     @Override
     public String toString() {
-        return  Arrays.toString(elementArray);
+//        return  Arrays.toString(elementArray);
+        return  to(elementArray);
+    }
+
+    private String to(Object[] array) {
+        if (array == null)
+            return "null";
+
+        int iMax = this.size - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append((array[i]));
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
     }
 
 }
