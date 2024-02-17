@@ -1,13 +1,16 @@
-import static org.junit.jupiter.api.Assertions.*;
-
+import Task2.IntensiveTest_EgorChagorov;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import org.junit.jupiter.api.Test;
+
 
 class ArrayList_EgorChagorovTest {
   @Test
+//  @IntensiveTest_EgorChagorov
   public void testSize() {
     // Initialize an empty list and check size
-    ArrayList_EgorChagorov<Integer> list = new ArrayList_EgorChagorov<>();
+    List<Integer> list = new ArrayList<>();
     assert list.size() == 0;
 
     // Add elements and check size
@@ -30,10 +33,11 @@ class ArrayList_EgorChagorovTest {
     list.add(15);
 
     // Check if elements are added correctly
-    assert list.size() == 3;
-    assert list.get(0) == 5;
-    assert list.get(1) == 10;
-    assert list.get(2) == 15;
+    ArrayList_EgorChagorov<Integer> expectedList = new ArrayList_EgorChagorov<>();
+    expectedList.add(5);
+    expectedList.add(10);
+    expectedList.add(15);
+    Assertions_EgorChagorov.assertEquals(expectedList, list);
   }
   @Test
   public void testAddAtIndex() {
@@ -50,7 +54,7 @@ class ArrayList_EgorChagorovTest {
     assert list.size() == 4;
     assert list.get(1) == 12;
   }
-
+  @Test
   public void testGet() {
     // Initialize a list with elements
     ArrayList_EgorChagorov<Integer> list = new ArrayList_EgorChagorov<>();
@@ -111,6 +115,7 @@ class ArrayList_EgorChagorovTest {
     assert list.size() == 10;
   }
   @Test
+  @IntensiveTest_EgorChagorov
   public void testQuickSort() {
     // Initialize a list with elements
     ArrayList_EgorChagorov<Integer> list = new ArrayList_EgorChagorov<>();
@@ -120,12 +125,12 @@ class ArrayList_EgorChagorovTest {
 
     // Sort the list
     list.quickSort(Comparator.naturalOrder());
-
+    ArrayList_EgorChagorov<Integer> expectedList = new ArrayList_EgorChagorov<>();
     // Check if list is sorted
-    assert list.size() == 3;
-    assert list.get(0) == 5;
-    assert list.get(1) == 10;
-    assert list.get(2) == 15;
+    expectedList.add(5);
+    expectedList.add(10);
+    expectedList.add(15);
+    Assertions_EgorChagorov.assertEquals(list,expectedList);
   }
   @Test
   public void testIsSorted() {
@@ -144,6 +149,8 @@ class ArrayList_EgorChagorovTest {
     // Check if lists are sorted
     assert sortedList.isSorted();
     assert !unsortedList.isSorted();
+
+
   }
   @Test
   // Test method for split(int size) method

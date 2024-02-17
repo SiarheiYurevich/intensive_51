@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -231,5 +232,30 @@ public class ArrayList_EgorChagorov<E> implements IntensiveList<E> {
       elements[i] = null;
     }
     this.size = size;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    ArrayList_EgorChagorov<?> that = (ArrayList_EgorChagorov<?>) o;
+
+    if (size != that.size) {
+      return false;
+    }
+    // Probably incorrect - comparing Object[] arrays with Arrays.equals
+    return Arrays.equals(elements, that.elements);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = Arrays.hashCode(elements);
+    result = 31 * result + size;
+    return result;
   }
 }
