@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 /**
  * Имплементация IntensiveList interface.
- * Этот класс позволяет сохранять и манипулировать элементами на базе массива int'ов.
+ * Этот класс позволяет сохранять и манипулировать элементами на базе массива
  */
 public class ArrayList_KirillKosykh<E> implements IntensiveList<E> {
 
@@ -13,7 +13,7 @@ public class ArrayList_KirillKosykh<E> implements IntensiveList<E> {
     private Object[] list;
 
     /**
-     * Конструктор, инициализирующий массив размером 10.
+     * Конструктор, инициализирующий массив дефолтного размера.
      */
     public ArrayList_KirillKosykh() {
         this.shift = 0;
@@ -49,7 +49,7 @@ public class ArrayList_KirillKosykh<E> implements IntensiveList<E> {
     /**
      * Добавляет элемент в конец ArrayList_KirillKosykh.
      *
-     * @param element элемент для добавления
+     * @param element элемент для добавления в конец
      */
     @Override
     public void add(E element) {
