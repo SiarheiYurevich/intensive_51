@@ -200,7 +200,7 @@ public class TestRunner_IrakliBarikhashvili {
      * @param clazz класс, для которого нужно создать новый экземпляр
      * @return новый экземпляр класса.
      * @throws NullPointerException если переданный класс равен null.
-     * @throws ResourceNotFoundException если класс не имеет конструктора по умолчанию,
+     * @throws MissingDefaultConstructorException если класс не имеет конструктора по умолчанию,
      * или если при создании экземпляра возникает другая ошибка.
      */
     private <T> T newInstance(Class<T> clazz) {
