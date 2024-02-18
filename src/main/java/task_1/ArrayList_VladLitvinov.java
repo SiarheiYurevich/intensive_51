@@ -7,39 +7,36 @@ import java.util.List;
 
 public class ArrayList_VladLitvinov<E> implements IntensiveList<E> {
     private E[] array;
+    private int size;
     private int capacity = 10;
     private final double loadFactor = 0.75;
 
     public ArrayList_VladLitvinov() {
-        this.array = (E[]) array[capacity];
+        array = (E[]) new Object[capacity];
+        size = 0;
     }
 
-    public ArrayList_VladLitvinov(int length) {
-        array = (E[]) new Object[length];
+    public ArrayList_VladLitvinov(int capacity) {
+        array = (E[]) new Object[capacity];
+        size = 0;
     }
 
     @Override
     public int size() {
-        int size = array.length;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == null)
-                size -= 1;
-        }
         return size;
+    }
+
+    private void capacityChange(){
+        if (loadFactor < (double) size / capacity) {
+            capacity = (int) (capacity * 1.5);
+        }
     }
 
     @Override
     public void add(E element) {
-        E[] arrayWithNewElement;
-        if (loadFactor < (double) size() / capacity) {
-            capacity *= (int) 1.5;
-            arrayWithNewElement = (E[]) new Object[capacity];
-            if (size() >= 0) System.arraycopy(array, 0, arrayWithNewElement, 0, size());
-            arrayWithNewElement[size()] = element;
-            if (size() >= 0) System.arraycopy(arrayWithNewElement, 0, array, 0, size() + 1);
-        } else {
-            array[size()] = element;
-        }
+        size++;
+        capacityChange();
+        array[size - 1] = element;
     }
 
     @Override
@@ -100,19 +97,7 @@ public class ArrayList_VladLitvinov<E> implements IntensiveList<E> {
 
     @Override
     public void quickSort(Comparator<E> comparator) {
-        List<E> list = List.of(array);
-
-        Collections.sort(list, comparator);
-    }
-
-    public static void main(String[] args) {
-        ArrayList_VladLitvinov<String> stringArrayListVladLitvinov = new ArrayList_VladLitvinov<>(11);
-        stringArrayListVladLitvinov.add("DDD");
-        stringArrayListVladLitvinov.add("DDED");
-        stringArrayListVladLitvinov.add("DDDD");
-        Comparator<String> stringComparator = (o1, o2) -> o2.length() - o1.length();
-        stringArrayListVladLitvinov.quickSort(stringComparator);
-        System.out.println(stringArrayListVladLitvinov);
+;
     }
 
     @Override
