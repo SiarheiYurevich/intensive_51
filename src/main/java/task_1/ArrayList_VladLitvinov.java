@@ -6,18 +6,18 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ArrayList_VladLitvinov<E> implements IntensiveList<E> {
-    private E[] array;
+    private Object[] array;
     private int size;
     private int capacity = 10;
-    private final double loadFactor = 0.75;
+    private final double LOAD_FACTOR = 0.75;
 
     public ArrayList_VladLitvinov() {
-        array = (E[]) new Object[capacity];
+        array = new Object[capacity];
         size = 0;
     }
 
     public ArrayList_VladLitvinov(int capacity) {
-        array = (E[]) new Object[capacity];
+        array = new Object[capacity];
         size = 0;
     }
 
@@ -26,87 +26,108 @@ public class ArrayList_VladLitvinov<E> implements IntensiveList<E> {
         return size;
     }
 
-    private void capacityChange(){
-        if (loadFactor < (double) size / capacity) {
-            capacity = (int) (capacity * 1.5);
-        }
-    }
 
     @Override
     public void add(E element) {
-        size++;
-        capacityChange();
-        array[size - 1] = element;
+        add(size, element);
     }
 
     @Override
     public void add(int index, E element) {
-        E[] arrayWithNewElement;
-        E[] arrayNumOne = (E[]) new Object[index + 1];
-        E[] arrayNumTwo;
-        if (loadFactor < (double) size() / capacity) {
-            capacity *= (int) 1.5;
+        size++;
+        capacityChange();
+        arrayLengthChange(index);
+        array[index] = element;
+    }
+
+    private void capacityChange() {
+        if (LOAD_FACTOR < (double) size / capacity) {
+            capacity = (int) (capacity * 1.5);
         }
-        arrayWithNewElement = (E[]) new Object[capacity];
-        arrayNumTwo = (E[]) new Object[arrayWithNewElement.length - arrayNumOne.length];
-
-        System.arraycopy(array, 0, arrayNumOne, 0, index);
-        arrayNumOne[index] = element;
-        System.arraycopy(array, index, arrayNumTwo, 0, size() - index);
-
-        System.arraycopy(arrayNumOne, 0, arrayWithNewElement, 0, arrayNumOne.length);
-        System.arraycopy(arrayNumTwo, 0, arrayWithNewElement, arrayNumOne.length, arrayNumTwo.length);
-
-        System.arraycopy(arrayWithNewElement, 0, array, 0, size() + 1);
     }
 
+    private void arrayLengthChange(int index) {
+        System.arraycopy(array, index, array, index + 1, size - index);
+    }
+
+
     @Override
+    @SuppressWarnings("unchecked")
     public E get(int index) {
-        return array[index];
+        return (E) array[index];
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public E set(int index, E element) {
-        return array[index] = element;
+        return (E) (array[index] = element);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public E remove(int index) {
-        E e = array[index];
-        E[] arrayWithNewElement = (E[]) new Object[capacity];
-        E[] arrayNumOne = (E[]) new Object[index];
-        E[] arrayNumTwo = (E[]) new Object[arrayWithNewElement.length - arrayNumOne.length];
-
-        System.arraycopy(array, 0, arrayNumOne, 0, index);
-        System.arraycopy(array, index, arrayNumTwo, 0, size() - index - 1);
-
-        System.arraycopy(arrayNumOne, 0, arrayWithNewElement, 0, arrayNumOne.length);
-        System.arraycopy(arrayNumTwo, 0, arrayWithNewElement, arrayNumOne.length, arrayNumTwo.length);
-
-        System.arraycopy(arrayWithNewElement, 0, array, 0, size() - 1);
-        return e;
+        size--;
+       Object o = array[index];
+       System.arraycopy(array, index + 1, array, index, size - index);
+        return (E) o;
     }
 
     @Override
     public void clear() {
+        size = 0;
         capacity = 10;
-        for (int i = 0; i < size(); i++) {
-            array[i] = null;
-        }
+        array = new Object[capacity];
     }
 
     @Override
     public void quickSort(Comparator<E> comparator) {
-;
+        quickSort(0, size - 1, comparator);
     }
 
+    private void quickSort(int fromIndex, int toIndex, Comparator<E> comparator) {
+        if (fromIndex < toIndex) {
+            int pivotIndex = partition(fromIndex, toIndex, comparator);
+            quickSort(fromIndex, pivotIndex - 1, comparator);
+            quickSort(pivotIndex + 1, toIndex, comparator);
+        }
+    }
+    @SuppressWarnings(value = "unchecked")
+    private int partition(int fromIndex, int toIndex, Comparator<E> comparator) {
+        E pivotElement = (E) array[toIndex];
+        int i = fromIndex - 1;
+        for (int j = fromIndex; j < toIndex; j++) {
+            if (comparator.compare((E) array[j], pivotElement) <= 0) {
+                i++;
+                swapElements(i, j);
+            }
+        }
+        swapElements(i + 1, toIndex);
+        return i + 1;
+    }
+
+    private void swapElements(int index1, int index2) {
+        Object temp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = temp;
+    }
+
+
     @Override
+    @SuppressWarnings("unchecked")
     public boolean isSorted() {
-        return false;
+        for (int i = 0; i < size - 1; i++) {
+            if (((Comparable<E>) array[i]).compareTo((E) array[i + 1]) > 0)
+                return false;
+        }
+        return true;
     }
 
     @Override
     public void split(int size) {
+        if (size < 0 || size > this.size)
+            throw new IllegalArgumentException("Invalid size: " + size);
 
+        this.size = size;
+        Arrays.fill(array, size, this.size, null);
     }
 }
