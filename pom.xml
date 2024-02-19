@@ -23,7 +23,6 @@
       <version>5.10.2</version>
 <!--      <scope>test</scope>-->
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.opentest4j/opentest4j -->
     <dependency>
       <groupId>org.opentest4j</groupId>
       <artifactId>opentest4j</artifactId>

@@ -1,4 +1,4 @@
-package pro.shamilabd;
+package pro.shamilabd.lesson2;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
@@ -6,7 +6,6 @@ import org.reflections.scanners.SubTypesScanner;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TestRunner_ShamilAbdullin {
 
@@ -16,10 +15,10 @@ public class TestRunner_ShamilAbdullin {
         this.packages = packages;
     }
 
-    public void findAndRunTests() {
+    public void run() {
         Set<Class<?>> allTests = findAllTests();
         List<Method> methodsWithAnnotation = new ArrayList<>();
-        for(Class element : allTests) {
+        for(Class<?> element : allTests) {
             Method[] allMethods = element.getMethods();
             methodsWithAnnotation.addAll(Arrays.stream(allMethods)
                     .filter(e -> e.isAnnotationPresent(IntensiveTest_ShamilAbdullin.class))
@@ -31,14 +30,14 @@ public class TestRunner_ShamilAbdullin {
                 continue;
             }
             try {
-//                Class<?> classForInvoke = Class.forName(method.getClass().getName());
-                Class<?> classForInvoke = method.getDeclaringClass();
-                method.invoke(classForInvoke);
-            } catch (InvocationTargetException | IllegalAccessException e) {
-//            } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException e) {
+                Object object = method.getDeclaringClass().getDeclaredConstructor().newInstance();
+                method.invoke(object);
+            } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
+                System.out.println("Failed.");
                 throw new RuntimeException(e);
             }
         }
+        System.out.println("TestRunner passed.");
     }
 
     private Set<Class<?>> findAllTests() {
@@ -47,10 +46,5 @@ public class TestRunner_ShamilAbdullin {
         return new HashSet<>(reflections.getSubTypesOf(Object.class));
 //        Reflections reflections = new Reflections(packages);
 //        return reflections.getTypesAnnotatedWith(IntensiveTest_ShamilAbdullin.class);
-    }
-
-    public static void main(String[] args) {
-        TestRunner_ShamilAbdullin test = new TestRunner_ShamilAbdullin("pro.shamilabd");
-        test.findAndRunTests();
     }
 }

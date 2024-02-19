@@ -69,10 +69,10 @@ public class ArrayList_ShamilAbdullin<E> implements IntensiveList<E> {
 
     private void checkOrUpdateArray() {
         if (size >= capacity) {
-            E[] newArray = (E[]) new Object[capacity * 2];
+            capacity *= 2;
+            E[] newArray = (E[]) new Object[capacity];
             System.arraycopy(array, 0, newArray, 0, array.length);
             array = newArray;
-            capacity *= 2;
         }
     }
 
@@ -84,6 +84,9 @@ public class ArrayList_ShamilAbdullin<E> implements IntensiveList<E> {
      */
     @Override
     public void add(int index, E element) {
+        if (index < 0 || index >= capacity) {
+            throw new IllegalArgumentException("Index out of array range.");
+        }
         if (element == null) {
             return;
         }
@@ -101,9 +104,6 @@ public class ArrayList_ShamilAbdullin<E> implements IntensiveList<E> {
             array = newArray;
             size++;
         } else {
-            if (index >= capacity) {
-                throw new ArrayIndexOutOfBoundsException();
-            }
             // TODO: надо переделать
             array[index] = element;
             size = index + 1;
@@ -117,6 +117,9 @@ public class ArrayList_ShamilAbdullin<E> implements IntensiveList<E> {
      */
     @Override
     public E get(int index) {
+        if (index < 0 || index >= capacity) {
+            throw new IllegalArgumentException("Index out of array range.");
+        }
         return array[index];
     }
 
@@ -129,10 +132,10 @@ public class ArrayList_ShamilAbdullin<E> implements IntensiveList<E> {
      */
     @Override
     public E set(int index, E element) {
-        isSorted = false;
-        if (index >= capacity) {
-            throw new ArrayIndexOutOfBoundsException();
+        if (index < 0 || index >= capacity) {
+            throw new IllegalArgumentException("Index out of array range.");
         }
+        isSorted = false;
         array[index] = element;
         return element;
     }
@@ -144,6 +147,9 @@ public class ArrayList_ShamilAbdullin<E> implements IntensiveList<E> {
      */
     @Override
     public E remove(int index) {
+        if (index < 0 || index >= capacity) {
+            throw new IllegalArgumentException("Index out of array range.");
+        }
         E obj = array[index];
         System.arraycopy(array, index + 1, array, index, size - index);
         size--;
@@ -159,6 +165,10 @@ public class ArrayList_ShamilAbdullin<E> implements IntensiveList<E> {
         capacity = DEFAULT_CAPACITY;
         array = (E[]) new Object[capacity];
         isSorted = false;
+    }
+
+    public void quickSort() {
+        quickSort((E t1, E t2) -> ((Comparable<E>) t1).compareTo(t2));
     }
 
     /**
@@ -234,11 +244,10 @@ public class ArrayList_ShamilAbdullin<E> implements IntensiveList<E> {
     @Override
     public void split(int newSize) {
         if (newSize >= size) {
-            return;
+            return; // Ничего обрезать не надо.
         }
-
         for (int i = newSize; i < capacity; i++) {
-            array[i] = null;
+            array[i] = null; // Занулим, чтобы не получить утечку памяти
         }
         size = newSize;
     }

@@ -1,4 +1,4 @@
-package pro.shamilabd;
+package pro.shamilabd.lesson2;
 
 import org.junit.jupiter.api.*;
 

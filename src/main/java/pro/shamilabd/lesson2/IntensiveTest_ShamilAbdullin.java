@@ -1,4 +1,4 @@
-package pro.shamilabd;
+package pro.shamilabd.lesson2;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
