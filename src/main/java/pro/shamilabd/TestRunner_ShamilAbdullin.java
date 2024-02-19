@@ -31,9 +31,11 @@ public class TestRunner_ShamilAbdullin {
                 continue;
             }
             try {
-                Class<?> classForInvoke = Class.forName(method.getClass().getName());
+//                Class<?> classForInvoke = Class.forName(method.getClass().getName());
+                Class<?> classForInvoke = method.getDeclaringClass();
                 method.invoke(classForInvoke);
-            } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException e) {
+            } catch (InvocationTargetException | IllegalAccessException e) {
+//            } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -41,10 +43,10 @@ public class TestRunner_ShamilAbdullin {
 
     private Set<Class<?>> findAllTests() {
         // TODO: fix test package scan
-//        Reflections reflections = new Reflections(packages, new SubTypesScanner(false));
-//        return new HashSet<>(reflections.getSubTypesOf(Object.class));
-        Reflections reflections = new Reflections(packages);
-        return reflections.getTypesAnnotatedWith(IntensiveTest_ShamilAbdullin.class);
+        Reflections reflections = new Reflections(packages, new SubTypesScanner(false));
+        return new HashSet<>(reflections.getSubTypesOf(Object.class));
+//        Reflections reflections = new Reflections(packages);
+//        return reflections.getTypesAnnotatedWith(IntensiveTest_ShamilAbdullin.class);
     }
 
     public static void main(String[] args) {

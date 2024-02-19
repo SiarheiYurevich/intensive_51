@@ -21,7 +21,7 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>5.10.2</version>
-      <scope>test</scope>
+<!--      <scope>test</scope>-->
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.opentest4j/opentest4j -->
     <dependency>
