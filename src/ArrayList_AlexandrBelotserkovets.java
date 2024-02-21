@@ -16,7 +16,8 @@ public class ArrayList_AlexandrBelotserkovets<E> implements IntensiveList<E> {
     /**
      * Дефолтная емкость коллекции.
      */
-    private int capacity = 16;
+    final int DEFOLTCAPACITY = 16;
+    private int capacity = DEFOLTCAPACITY;
 
     /**
      * Массив обобщенного типа.
@@ -35,6 +36,23 @@ public class ArrayList_AlexandrBelotserkovets<E> implements IntensiveList<E> {
      */
     private void setSorted(boolean sorted) {
         isSorted = sorted;
+    }
+
+    /**
+     * Дефолтный конструктор без параметров.
+     */
+    public ArrayList_AlexandrBelotserkovets() {
+        this.arrayElements = (E[]) new Object[this.capacity];
+    }
+
+    /**
+     * Конструктор с параметрами
+     *
+     * @param capacity - Данный парамет определяет емкость коллекции.
+     */
+    public ArrayList_AlexandrBelotserkovets(int capacity) {
+        this.capacity = capacity;
+        this.arrayElements = (E[]) new Object[this.capacity];
     }
 
     /**
@@ -145,6 +163,7 @@ public class ArrayList_AlexandrBelotserkovets<E> implements IntensiveList<E> {
      */
     @Override
     public void clear() {
+        capacity = DEFOLTCAPACITY;
         arrayElements = (E[]) new Object[capacity];
     }
 
