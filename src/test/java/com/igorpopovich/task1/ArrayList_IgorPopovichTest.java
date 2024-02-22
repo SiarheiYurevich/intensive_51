@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
-import java.util.List;
 
 public class ArrayList_IgorPopovichTest {
     private ArrayList_IgorPopovich<Integer> testList;
