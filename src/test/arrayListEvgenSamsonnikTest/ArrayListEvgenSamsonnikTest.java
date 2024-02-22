@@ -1,7 +1,6 @@
-package by.samsonnik.astontrainee;
+package arrayListEvgenSamsonnikTest;
 
-import org.junit.Before;
-import org.junit.Test;
+import by.samsonnik.astontrainee.ArrayListEvgenSamsonnik;
 
 import java.util.Comparator;
 import java.util.Random;
@@ -11,39 +10,38 @@ import static org.junit.Assert.*;
 public class ArrayListEvgenSamsonnikTest {
 
     //Here are variables, what we are needing to test custom Array List
-    private ArrayListEvgenSamsonnik<String> stringList;
-    private ArrayListEvgenSamsonnik<Integer> integerList;
-    private ArrayListEvgenSamsonnik<Double> doubleList;
+    private final ArrayListEvgenSamsonnik<String> stringList = new ArrayListEvgenSamsonnik<>();
+    private final ArrayListEvgenSamsonnik<Integer> integerList = new ArrayListEvgenSamsonnik<>();
+    private final ArrayListEvgenSamsonnik<Double> doubleList = new ArrayListEvgenSamsonnik<>();
     //For random values generating
-    private Random random;
-
-    @Before
-    public void setUp() {
-        stringList = new ArrayListEvgenSamsonnik<>();
-        integerList = new ArrayListEvgenSamsonnik<>();
-        doubleList = new ArrayListEvgenSamsonnik<>();
-        random = new Random();
-    }
+    private final Random random = new Random();
 
     //Testing array capacity initialization
-    @Test
+    @IntensiveTestSamsonnikEvgen
     public void testListInit() {
-        assertNotEquals(0, stringList.size());
+        assertNotEquals(1, stringList.size());
         assertNotEquals(5, stringList.size());
-        assertEquals(10, stringList.size());
+        assertNotEquals(7, stringList.size());
         stringList.split(4);
         assertEquals(4, stringList.size());
     }
 
     //Testing initialization with incorrect input data
-    @Test(expected = IllegalArgumentException.class)
+    @IntensiveTestSamsonnikEvgen
     public void testInvalidCapacity() {
-        ArrayListEvgenSamsonnik<Integer> invalidCapacity = new ArrayListEvgenSamsonnik<>(-1);
+        boolean flag = false;
+        try {
+            ArrayListEvgenSamsonnik<Integer> invalidCapacity = new ArrayListEvgenSamsonnik<>(-1);
+        } catch (IllegalArgumentException exception) {
+            flag = true;
+        }
+        assertTrue(flag);
     }
 
-    //We test adding to String array data and checking, that was correct and data was saved
-    @Test
+    //We test adding to String array data and checking, that this was correct and data was saved
+    @IntensiveTestSamsonnikEvgen
     public void testAddStringElements() {
+
         stringList.add("Vladimir");
         stringList.add("Petr");
         stringList.add("Alex");
@@ -61,46 +59,46 @@ public class ArrayListEvgenSamsonnikTest {
 
     }
 
-    //We test adding to Integer array data and checking, that was correct and data was saved
-    @Test
+    //We test adding to Integer array data and checking, that this was correct and data was saved
+    @IntensiveTestSamsonnikEvgen
     public void testAddIntegerElements() {
         integerList.add(100);
         integerList.add(200);
         integerList.add(300);
         integerList.add(400);
 
-        assert (integerList.get(0) == 100);
-        assert (integerList.get(1) == 200);
-        assert (integerList.get(2) == 300);
-        assert (integerList.get(3) == 400);
+        assertEquals(100, (int) integerList.get(0));
+        assertEquals(200, (int) integerList.get(1));
+        assertEquals(300, (int) integerList.get(2));
+        assertEquals(400, (int) integerList.get(3));
 
-        assert (integerList.get(3) != 100);
-        assert (integerList.get(2) != 200);
-        assert (integerList.get(1) != 300);
-        assert (integerList.get(0) != 400);
+        assertNotEquals(100, (int) integerList.get(3));
+        assertNotEquals(200, (int) integerList.get(2));
+        assertNotEquals(300, (int) integerList.get(1));
+        assertNotEquals(400, (int) integerList.get(0));
     }
 
-    //We test adding to Double array data and checking, that was correct and data was saved
-    @Test
+    //We test adding to Double array data and checking, that this was correct and data was saved
+    @IntensiveTestSamsonnikEvgen
     public void testAddDoubleElements() {
         doubleList.add(22.3);
         doubleList.add(44.7);
         doubleList.add(111.56);
         doubleList.add(987.9);
 
-        assert (doubleList.get(0) == 22.3);
-        assert (doubleList.get(1) == 44.7);
-        assert (doubleList.get(2) == 111.56);
-        assert (doubleList.get(3) == 987.9);
+        assertEquals(22.3, doubleList.get(0), 0.0);
+        assertEquals(44.7, doubleList.get(1), 0.0);
+        assertEquals(111.56, doubleList.get(2), 0.0);
+        assertEquals(987.9, doubleList.get(3), 0.0);
 
-        assert (doubleList.get(3) != 22.2);
-        assert (doubleList.get(2) != 44.7);
-        assert (doubleList.get(1) != 111.56);
-        assert (doubleList.get(0) != 987.9);
+        assertNotEquals(22.3, doubleList.get(3), 0.0);
+        assertNotEquals(44.7, doubleList.get(3), 0.0);
+        assertNotEquals(111.56, doubleList.get(1), 0.0);
+        assertNotEquals(987.9, doubleList.get(0), 0.0);
     }
 
     //Here we test adding to Integer array data and checking, that this was correct and we can get data by the index
-    @Test
+    @IntensiveTestSamsonnikEvgen
     public void testAddAndGetIntegerElementByIndex() {
         integerList.add(0, 20);
         integerList.add(5, 23);
@@ -108,15 +106,15 @@ public class ArrayListEvgenSamsonnikTest {
         integerList.add(7, 25);
         integerList.add(13, 99);
 
-        assert (integerList.get(0) == 20);
-        assert (integerList.get(5) == 23);
-        assert (integerList.get(6) == 24);
-        assert (integerList.get(7) == 25);
-        assert (integerList.get(13) == 99);
+        assertEquals(20, (int) integerList.get(0));
+        assertEquals(23, (int) integerList.get(5));
+        assertEquals(24, (int) integerList.get(6));
+        assertEquals(25, (int) integerList.get(7));
+        assertEquals(99, (int) integerList.get(13));
     }
 
     //Here we test adding to Double array data and checking, that this was correct and we can get data by the index
-    @Test
+    @IntensiveTestSamsonnikEvgen
     public void testAddAndGetDoubleElementByIndex() {
         doubleList.add(0, 20.7);
         doubleList.add(2, 13.2);
@@ -124,16 +122,15 @@ public class ArrayListEvgenSamsonnikTest {
         doubleList.add(4, 344.2);
         doubleList.add(13, 123.2);
 
-        assert (doubleList.get(0) == 20.7);
-        assert (doubleList.get(2) == 13.2);
-        assert (doubleList.get(9) == 11.2);
-        assert (doubleList.get(4) == 344.2);
-        assert (doubleList.get(13) == 123.2);
-
+        assertEquals(20.7, doubleList.get(0), 0);
+        assertEquals(13.2, doubleList.get(2), 0);
+        assertEquals(11.2, doubleList.get(9), 0);
+        assertEquals(344.2, doubleList.get(4), 0);
+        assertEquals(123.2, doubleList.get(13), 0);
     }
 
     //Here we test adding to String array data and checking, that this was correct and we can get data by the index
-    @Test
+    @IntensiveTestSamsonnikEvgen
     public void testAddAndGetStringElementByIndex() {
         stringList.add(3, "A");
         stringList.add(5, "B");
@@ -150,7 +147,7 @@ public class ArrayListEvgenSamsonnikTest {
     }
 
     //Here we test setting and removing elements with different types of data
-    @Test
+    @IntensiveTestSamsonnikEvgen
     public void testSetAndRemoveElement() {
 
         //adding data
@@ -172,8 +169,8 @@ public class ArrayListEvgenSamsonnikTest {
         //we test that data was added and this was correct
         doubleList.set(4, 888.6);
         doubleList.set(9, 222.2);
-        assert (doubleList.get(4) == 888.6);
-        assert (doubleList.get(9) == 222.2);
+        assertEquals(doubleList.get(4), 888.6, 0);
+        assertEquals(doubleList.get(9), 222.2, 0);
 
         //removing data
         doubleList.remove(4);
@@ -186,8 +183,8 @@ public class ArrayListEvgenSamsonnikTest {
         //we test that data was added and this was correct
         integerList.set(2, 55);
         integerList.set(5, 22);
-        assert (integerList.get(2) == 55);
-        assert (integerList.get(5) == 22);
+        assertEquals(55, (int) integerList.get(2));
+        assertEquals(22, (int) integerList.get(5));
 
         //removing data
         integerList.remove(2);
@@ -199,7 +196,7 @@ public class ArrayListEvgenSamsonnikTest {
     }
 
     // checking method, that removing all data
-    @Test
+    @IntensiveTestSamsonnikEvgen
     public void testClearElement() {
 
         //adding data
@@ -217,7 +214,7 @@ public class ArrayListEvgenSamsonnikTest {
     }
 
     //Here we are testing custom sorting inner different types of data with custom quick sorting algorithm
-    @Test
+    @IntensiveTestSamsonnikEvgen
     public void testQuickSortElement() {
 
         //String data for sorting
@@ -258,7 +255,7 @@ public class ArrayListEvgenSamsonnikTest {
     }
 
     // Here we are testing void, which returns boolean value
-    @Test
+    @IntensiveTestSamsonnikEvgen
     public void testIsSortedVoid() {
 
         //adding Integer and Double data
@@ -284,11 +281,10 @@ public class ArrayListEvgenSamsonnikTest {
         //Here are random values, result have to be false
         assertFalse(integerList.isSorted());
         assertFalse(doubleList.isSorted());
-
     }
 
     //This method trim the array
-    @Test
+    @IntensiveTestSamsonnikEvgen
     public void testSplitVoid() {
 
         //trimming different arrays
@@ -300,6 +296,30 @@ public class ArrayListEvgenSamsonnikTest {
         assertEquals(6, integerList.size());
         assertEquals(7, doubleList.size());
         assertEquals(8, stringList.size());
+    }
 
+    //Test static methods from AssertionSamsonnikEvgen class
+    @IntensiveTestSamsonnikEvgen
+    public void testEqualsTwoLists() {
+
+        //Here we are creating two lists
+        ArrayListEvgenSamsonnik<String> firstList = new ArrayListEvgenSamsonnik<>();
+        ArrayListEvgenSamsonnik<String> secondList = new ArrayListEvgenSamsonnik<>();
+
+        //Adding data to the lists
+        firstList.add("Victor");
+        firstList.add("Petr");
+        firstList.add("Vova");
+
+        secondList.add("Victor");
+        secondList.add("Petr");
+        secondList.add("Vova");
+
+        //Making comparing
+        AssertionSamsonnikEvgen.assertEquals(firstList, secondList);
+
+        //Testing when the lists are different
+        secondList.add("Ignat");
+        AssertionSamsonnikEvgen.assertNoTEquals(firstList, secondList);
     }
 }

@@ -264,4 +264,19 @@ public class ArrayListEvgenSamsonnik<E> implements IntensiveList<E> {
     public String toString() {
         return Arrays.toString(elementData);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArrayListEvgenSamsonnik<?> that = (ArrayListEvgenSamsonnik<?>) o;
+        return lastFilledElement == that.lastFilledElement && Arrays.equals(elementData, that.elementData);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(lastFilledElement);
+        result = 31 * result + Arrays.hashCode(elementData);
+        return result;
+    }
 }
