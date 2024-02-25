@@ -1,3 +1,5 @@
+package task_1;
+
 import java.util.Comparator;
 
 public class Main {
