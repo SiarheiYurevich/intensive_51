@@ -24,9 +24,9 @@ public class IntensiveArrayListTest_MikhailShchechin {
     }
 
     /**
-     * Реализация сортировки массива по неубыванию
+     * Реализация сортировки массива по не убыванию
      *
-     * @param list передаваеммый массив для сортировки
+     * @param list передаваемый массив для сортировки
      */
     private static List<Integer> sortList(List<Integer> list) {
         return list.stream().sorted(Comparator.comparingInt(Integer::intValue)).toList();

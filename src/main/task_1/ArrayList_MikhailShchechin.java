@@ -12,7 +12,7 @@ import java.util.Comparator;
 
 
 public class ArrayList_MikhailShchechin<E> implements IntensiveList<E> {
-    private static final int DEFAULT_CAPACITY = 10;
+    static final int DEFAULT_CAPACITY = 10;
     private Object[] elements;
     private int size;
 
@@ -30,6 +30,7 @@ public class ArrayList_MikhailShchechin<E> implements IntensiveList<E> {
 
     /**
      * Возвращает количество элементов в списке.
+     *
      * @return
      */
     @Override
