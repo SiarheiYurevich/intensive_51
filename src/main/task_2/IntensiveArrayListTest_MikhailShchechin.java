@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Тестовый класс, для проверки является ли массив отсортированным
+ *
+ * @autor Mikhail
  */
 public class IntensiveArrayListTest_MikhailShchechin {
 
@@ -26,7 +28,7 @@ public class IntensiveArrayListTest_MikhailShchechin {
     /**
      * Реализация сортировки массива по не убыванию
      *
-     * @param list передаваемый массив для сортировки
+     * @param list - передаваемый массив для сортировки
      */
     private static List<Integer> sortList(List<Integer> list) {
         return list.stream().sorted(Comparator.comparingInt(Integer::intValue)).toList();

@@ -20,7 +20,7 @@ public class ArrayList_MikhailShchechin<E> implements IntensiveList<E> {
         if (initialCapacity > 0) {
             this.elements = new Object[initialCapacity];
         } else if (initialCapacity <= 0) {
-            throw new IllegalArgumentException("initialCapacity <= 0");
+            throw new IllegalArgumentException("Invalid capacity: " + initialCapacity);
         }
     }
 
@@ -56,12 +56,12 @@ public class ArrayList_MikhailShchechin<E> implements IntensiveList<E> {
      *
      * @param index   - индекс добавляемого элемента.
      * @param element - элемент, который будет сохранен по указанному индексу.
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException - если индекс выходит за пределы границ списка (index < 0 || index >= size)
      */
     @Override
     public void add(int index, E element) {
         if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Invalid index to insert element: " + index);
         }
         if (size == elements.length) {
             increaseCapacity();
@@ -76,12 +76,12 @@ public class ArrayList_MikhailShchechin<E> implements IntensiveList<E> {
      *
      * @param index - индекс возвращаемого элемента.
      * @return
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException - если индекс выходит за пределы границ списка (index < 0 || index >= size)
      */
     @Override
     public E get(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Invalid index to get element: " + index);
         }
         return (E) elements[index];
     }
@@ -92,12 +92,12 @@ public class ArrayList_MikhailShchechin<E> implements IntensiveList<E> {
      * @param index   - индекс элемента замены.
      * @param element - элемент, который будет сохранен по указанному индексу.
      * @return
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException - если индекс выходит за пределы границ списка (index < 0 || index >= size)
      */
     @Override
     public E set(int index, E element) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Invalid index to get element: " + index);
         }
         E previousElement = (E) elements[index];
         elements[index] = element;
@@ -109,12 +109,12 @@ public class ArrayList_MikhailShchechin<E> implements IntensiveList<E> {
      *
      * @param index - индекс элемента который будет удален.
      * @return
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException - если индекс выходит за пределы границ списка (index < 0 || index >= size)
      */
     @Override
     public E remove(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Invalid index to get element: " + index);
         }
         E removedElement = (E) elements[index];
         System.arraycopy(elements, index + 1, elements, index, size - index - 1);
@@ -186,12 +186,12 @@ public class ArrayList_MikhailShchechin<E> implements IntensiveList<E> {
      * Обрезает список до указанного размера.
      *
      * @param size - размер списка.
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException - если новый размер списка выходит за его границы (size < 0 || size > this.size)
      */
     @Override
     public void split(int size) {
         if (size < 0 || size > this.size) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Size is incorrect: " + size);
         }
         this.size = size;
         elements = java.util.Arrays.copyOf(elements, size);

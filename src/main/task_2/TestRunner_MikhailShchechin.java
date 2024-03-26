@@ -8,11 +8,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Класс, предназначен для поиска и запуска тестовых методов, аннотированных специальными аннотациями,
+ * в указанных пакетах.
+ *
+ * @autor Mikhail
+ */
 public class TestRunner_MikhailShchechin {
     /**
      * Выполняет поиск и запуск тестов в указанных пакетах
      *
-     * @param packageNames имя пакетов сканирования
+     * @param packageNames - имя пакетов сканирования
      */
     public void run(String... packageNames) {
         List<Method> testMethods = Stream.of(packageNames)
@@ -33,8 +39,8 @@ public class TestRunner_MikhailShchechin {
 
     /**
      * Сканирует пакет на предмет методов.
-     * @param packageName имя пакета сканирования
-     * @return возвращает список методов
+     * @param packageName - имя пакета сканирования
+     * @return - возвращает список методов
      */
     private static List<Method> getMethodsInPackage(String packageName) {
         List<Method> testMethods = new ArrayList<>();
